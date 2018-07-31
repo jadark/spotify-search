@@ -5,16 +5,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Spotigy Searching</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <body>
     <div id="app">
-        <p>{{ message }}</p>
-        <ol>
+        <!-- <ol>
             <li v-for="todo in todos">
                 {{ todo.text }}
             </li>
-        </ol>
-        <button id="btn-login" v-on:click="getAuth">Login</button>
+        </ol> -->
+        <div class="text-center mt-5" v-if="!logged">
+            <button class="btn btn-lg btn-outline-success" id="btn-login" v-on:click="getAuth"><i class="fab fa-spotify"></i> Login</button>
+        </div>
+        <div class="container mt-5" v-if="logged">
+            <form @submit="checkForm" action="/">
+                <div class="row">
+                    <div class="col-4">
+                        <select class="form-control form-control-lg" name="movie">
+                            <option selected value="">-Select filter-</option>
+                            <option value="playlist">Playlist</option>
+                            <option value="album">Album</option>
+                            <option value="artist">Artist</option>
+                            <option value="track">Track</option>
+                        </select>
+                    </div>
+                    <div class="col-6">
+                        <input class="form-control form-control-lg" type="text" placeholder="Search...">
+                    </div>
+                    <div class="col-2">
+                        <button type="submit" class="btn btn-primary btn-lg"><i class="fas fa-search"></i> Search</button>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.js"></script>

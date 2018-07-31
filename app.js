@@ -6,7 +6,7 @@ var app = new Vue({
             { text: 'Learn Vue' },
             { text: 'Build something awesome' }
         ],
-        message: 'Hello Vue!',
+        logged: false,
         accessToken: ''
     },
     beforeMount: function () {
@@ -20,6 +20,7 @@ var app = new Vue({
             token = urlHash[1];
             tokenString = token.split('&');
             this.accessToken = tokenString[0];
+            this.logged = true;
             window.history.pushState({}, document.title, "/");
         }
     },
@@ -27,8 +28,11 @@ var app = new Vue({
         this.getUserData();
     },
     methods: {
+        checkForm: function (e) {
+            e.preventDefault();
+            console.log(e);
+        },
         login: function (callback) {
-
             var CLIENT_ID = '97c8ca87b809402b9682ab80c8f7fe1e';
             var REDIRECT_URI = 'http://localhost:5500?callback=true';
 
@@ -62,31 +66,15 @@ var app = new Vue({
 
         },
         getUserData: function () {
-            console.log(this.accessToken, '  Getatadaaa');
-            // axios
-            //     .get('https://api.spotify.com/v1/me', me, {
-            //         headers: { Authorization: "Bearer " + this.accessToken },
-            //         json: true
-            //     })
-            //     .then(response => (
-            //         console.log(response)
-            //     ));
-            axios.get('https://api.spotify.com/v1/me', {
-                headers: { Authorization: "Bearer " + this.accessToken },
-                json: true
-            }).then(function (response) {
-                console.log(response);
-            });
-            // axios({
-            //     method: 'get',
-            //     url: 'https://api.spotify.com/v1/me',
-            //     headers: {
-            //        'Authorization': 'Bearer ' + this.accessToken
-            //     },
-            //     json: true
-            // }).then(function (response) {
-            //     console.log(response);
-            // })
+            if (this.accessToken.length > 0) {                
+                console.log(this.accessToken, '  Getatadaaa');
+                axios.get('https://api.spotify.com/v1/me', {
+                    headers: { Authorization: "Bearer " + this.accessToken },
+                    json: true
+                }).then(function (response) {
+                    console.log(response);
+                });
+            }
         },
         getAuth: function() {
                 this.login(function(accessToken) {
