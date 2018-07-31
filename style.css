@@ -1,0 +1,48 @@
+table{
+	clear: left;
+}
+table:not(.summary) tr:hover{
+    background-color: lightgrey;
+}
+
+table.summary{
+	background-color: aliceblue;
+}
+
+table.summary td{
+	border: solid 1px #dddddd;
+}
+
+table:not(.summary) tr:first-child{
+    font-size: 14pt;
+	padding: 5px;
+}
+table:not(.summary){
+    border-collapse: collapse;
+}
+
+img.cover {
+    height:200px;
+}
+div.form {padding: 10px;
+	float: left;
+}
+div.form input[type=text] {
+    font-size: 20px;
+}
+#market{
+    font-family: monospace;
+}
+
+div.notes{
+	clear: both;
+}
+
+#MBTitleTrackHead{
+	display: none;
+}
+
+a:hover{
+	background-color: #222222;
+	color:#ffffff;
+}

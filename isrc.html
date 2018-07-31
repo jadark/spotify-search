@@ -1,0 +1,19 @@
+<!DOCTYPE html><html>
+<head>
+    <title>ISRC fetcher</title>
+<link rel="stylesheet" type="text/css" href="style.css">    
+</head>
+
+<body>
+    <div class="form"><form><input type=text id="query" placeholder="Query criteria"><br><input type=text id="market" size="4" placeholder="Market"><br><br>
+        <input type="radio" value="Album" name="queryType" id="selectAlbum">album<input type="radio" name="queryType" value="Artist" id="selectArtist">artist<br><input type="checkbox" id="ShowImages" checked>display images<br>
+        <input type="button" id="search" value="Search" onclick="Search()">
+        <input type="button" id="lookup" value="Lookup ID" onclick="Lookup()">
+    </form></div>
+	<div class="form" id="MBControl"><form><input type="text" id="MBReleaseID" placeholder="MusicBrainz release ID"><br><input type="button" onclick="MatchMBID()" value="Match MB release"></form><span id="MBMatchStatus"></span></div>
+    <div id="Table"></div>
+    <div class="notes"><ul><li>Query should contain either the keywords to search, or the ID to lookup</li><li>Market should be left blank unless you wish to limit results to only one market</li></ul></div>
+<script src="script.js"></script>    
+</body>
+    
+</html>
