@@ -16,9 +16,10 @@
             </li>
         </ol> -->
         <div class="text-center mt-5" v-if="!logged">
-            <button class="btn btn-lg btn-outline-success" id="btn-login" v-on:click="getAuth"><i class="fab fa-spotify"></i> Login</button>
+            <button class="btn btn-lg btn-outline-success" id="btn-login" v-on:click="login"><i class="fab fa-spotify"></i> Login</button>
         </div>
         <div class="container mt-5" v-if="logged">
+            <pre>{{$data}}</pre>
             <form @submit="checkForm" action="/">
                 <div class="row">
                     <div class="col-4">

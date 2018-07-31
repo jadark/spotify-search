@@ -1,13 +1,9 @@
 var app = new Vue({
     el: '#app',
     data: {
-        todos: [
-            { text: 'Learn JavaScript' },
-            { text: 'Learn Vue' },
-            { text: 'Build something awesome' }
-        ],
-        logged: false,
-        accessToken: ''
+        user: [],
+        logged: (sessionStorage.getItem('token')) ? true : false,
+        accessToken: (sessionStorage.getItem('token')) ? sessionStorage.getItem('token') : ''
     },
     beforeMount: function () {
         function getURLParameter(name) {
@@ -20,7 +16,8 @@ var app = new Vue({
             token = urlHash[1];
             tokenString = token.split('&');
             this.accessToken = tokenString[0];
-            this.logged = true;
+            sessionStorage.setItem('logged', true);
+            sessionStorage.setItem('token', tokenString[0]);
             window.history.pushState({}, document.title, "/");
         }
     },
@@ -32,7 +29,7 @@ var app = new Vue({
             e.preventDefault();
             console.log(e);
         },
-        login: function (callback) {
+        login(callback) {
             var CLIENT_ID = '97c8ca87b809402b9682ab80c8f7fe1e';
             var REDIRECT_URI = 'http://localhost:5500?callback=true';
 
@@ -65,15 +62,16 @@ var app = new Vue({
             //    );
 
         },
-        getUserData: function () {
-            if (this.accessToken.length > 0) {                
-                console.log(this.accessToken, '  Getatadaaa');
+        getUserData() {
+            var dataToken = this.accessToken;
+            if (this.logged) {                
                 axios.get('https://api.spotify.com/v1/me', {
-                    headers: { Authorization: "Bearer " + this.accessToken },
-                    json: true
-                }).then(function (response) {
-                    console.log(response);
-                });
+                    headers: { Authorization: "Bearer " + this.accessToken }
+                }).then(response => {
+                    this.user = response.data;
+                    console.log(this.user.country);
+                    
+                })
             }
         },
         getAuth: function() {
